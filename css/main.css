@@ -110,6 +110,12 @@ body {
 .input-container {
     display: flex;
     align-items: center;
+    border-top: 1px solid;
+    padding-top: 20px; 
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 40px);
+    background: #0c0c0c;
 }
 
 .prompt-symbol {
