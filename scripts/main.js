@@ -1,6 +1,6 @@
 const fileSystem = {
     'info.txt': 'Informations système :\n- OS: Terminal Ticip v1.0\n- Utilisateur: Guest\n- Statut: En ligne',
-    'cv.txt': 'CURRICULUM VITAE\n================\n\nNom: Développeur Web Full Stack - Pentester\nLangues: Francais | Anglais | Espagnol\nCompétences: JavaScript, HTML, CSS, Php, Python\nExpérience: 10 ans de développement web (Web app/API | FRONT/BACK | Fullstack)\n\nEXPERIENCES\n================\n\nVetolib.fr - Développeur\nTypescript / vuejs 2/3\n(mai 2021 - mars 2025) · 3 ans 11 mois\n================\nAvent Media | groupe Olyn - Développeur\nPHP Symfony / Node / React\nsept. 2020 - avr. 2021 · 8 mois\n================\nMadMix - Développeur\nNode / VueJs\nsept. 2018 - nov. 2019 · 1 an 3 mois\n================\nCocciNet - Développeur\nWordpress / Prestashop / Custom\nsept. 2014 - mars 2017 · 2 ans 7 mois\n================\nAGENCE SIX FEET OVER - Web designer\nPhotoshop / Illustrator / HTML|CSS|JS\njuin 2012 - mars 2014 · 1 an 10 mois\n\n\n\n\n',
+    'cv.txt': 'CURRICULUM VITAE\n================\n\nNom: Développeur Web Full Stack - Pentester\nLangues: Francais | Anglais | Espagnol\nCompétences: JavaScript, HTML, CSS, Php, Python\nExpérience: 10 ans de développement web (Web app/API | FRONT/BACK | Fullstack)\n\nEXPERIENCES\n================\n\nVetolib.fr - Développeur\nTypescript / vuejs 2/3\n(mai 2021 - mars 2025) · 3 ans 11 mois\n================\nAvent Media | groupe Olyn - Développeur\nPHP Symfony / Node / React\nsept. 2020 - avr. 2021 · 8 mois\n================\nMadMix - Développeur\nNode / VueJs\nsept. 2018 - nov. 2019 · 1 an 3 mois\n================\nCocciNet - Développeur\nWordpress / Prestashop / Custom\nsept. 2014 - mars 2017 · 2 ans 7 mois\n================\nSix Feet Over - Web designer\nPhotoshop / Illustrator / HTML|CSS|JS\njuin 2012 - mars 2014 · 1 an 10 mois\n\n\n\n\n',
     'contact.txt': 'Informations de contact :\n\nEmail: luc.natale@gmail.com\nLinkedIn: https://fr.linkedin.com/in/lucas-natale-ab973061?trk=people-guest_people_search-card\nGitHub: https://github.com/lntl\nTryhackme: https://tryhackme.com/p/Ticip'
 };
 
@@ -64,11 +64,7 @@ function listFiles() {
 
     let output_text = '';
     items.forEach(item => {
-        if (item.endsWith('/')) {
-            output_text += `<span class="directory">${item}</span>  `;
-        } else {
-            output_text += `<span class="file">${item}</span>  `;
-        }
+        output_text += `<span class="file">${item}</span><br>`;
     });
     
     addLine(output_text);
@@ -88,8 +84,6 @@ function catFile(filename) {
             let fileContent = contents[filename].replace(/\n/g, '<br>');
             fileContent = makeLinksClickable(fileContent);
             addLine(`<div class="file-content">${fileContent}</div>`);
-        } else {
-            addLine(`cat: ${filename}: Est un répertoire`, 'error');
         }
     } else {
         addLine(`cat: ${filename}: Fichier non trouvé`, 'error');
@@ -142,7 +136,6 @@ function processCommand(command) {
             clearScreen();
             break;
         case '':
-            // Ne rien faire pour une ligne vide
             break;
         default:
             addLine(`Commande non reconnue: ${cmd}. Tapez 'help' pour voir les commandes disponibles.`, 'error');
