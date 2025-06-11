@@ -1,7 +1,7 @@
 const fileSystem = {
     'info.txt': 'Informations système :\n- OS: Terminal Ticip v1.0\n- Utilisateur: Guest\n- Statut: En ligne',
-    'cv.txt': 'CURRICULUM VITAE\n================\nNom: Développeur Web - Pentester \nCompétences: JavaScript, HTML, CSS, Php, Python\nExpérience: 10 ans de développement',
-    'contact.txt': 'Informations de contact :\n\nEmail: luc.natale@gmail.com\nLinkedIn: https://fr.linkedin.com/in/lucas-natale-ab973061?trk=people-guest_people_search-card\nGitHub: https://github.com/lntl'
+    'cv.txt': 'CURRICULUM VITAE\n================\nNom: Développeur Web - Pentester \nCompétences: JavaScript, HTML, CSS, Php, Python\nExpérience: 10 ans de développement web (Web application/API | FRONT/BACK | Fullstack)',
+    'contact.txt': 'Informations de contact :\n\nEmail: luc.natale@gmail.com\nLinkedIn: https://fr.linkedin.com/in/lucas-natale-ab973061?trk=people-guest_people_search-card\nGitHub: https://github.com/lntl\nTryhackme: https://tryhackme.com/p/Ticip'
 };
 
 let currentDirectory = '';
