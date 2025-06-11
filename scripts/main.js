@@ -91,7 +91,7 @@ function showHelp() {
         <strong>clear</strong> - Effacer l'écran du terminal<br><br>
         
         Fichiers disponibles :<br>
-        • cv.txt - Message de bienvenue<br>
+        • cv.txt - Curriculum vitae<br>
         • info.txt - Informations système<br>
         • contact.txt - Informations de contact<br>
         </div>
