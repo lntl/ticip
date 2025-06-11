@@ -1,8 +1,10 @@
 const fileSystem = {
     'info.txt': 'Informations système :\n- OS: Terminal Ticip v1.0\n- Utilisateur: Guest\n- Statut: En ligne',
-    'cv.txt': 'CURRICULUM VITAE\n================\nNom: Développeur Web - Pentester \nCompétences: JavaScript, HTML, CSS, Php, Python\nExpérience: 10 ans de développement web (Web application/API | FRONT/BACK | Fullstack)',
+    'cv.txt': 'CURRICULUM VITAE\n================\n\nNom: Développeur Web Full Stack - Pentester\nLangues: Francais | Anglais | Espagnol\nCompétences: JavaScript, HTML, CSS, Php, Python\nExpérience: 10 ans de développement web (Web app/API | FRONT/BACK | Fullstack)\n\nEXPERIENCES\n================\n\nVetolib.fr - Développeur\nTypescript / vuejs 2/3\n(mai 2021 - mars 2025) · 3 ans 11 mois\n================\nAvent Media | groupe Olyn - Développeur\nPHP Symfony / Node / React\nsept. 2020 - avr. 2021 · 8 mois\n================\nMadMix - Développeur\nNode / VueJs\nsept. 2018 - nov. 2019 · 1 an 3 mois\n================\nCocciNet - Développeur\nWordpress / Prestashop / Custom\nsept. 2014 - mars 2017 · 2 ans 7 mois\n================\nAGENCE SIX FEET OVER - Web designer\nPhotoshop / Illustrator / HTML|CSS|JS\njuin 2012 - mars 2014 · 1 an 10 mois',
     'contact.txt': 'Informations de contact :\n\nEmail: luc.natale@gmail.com\nLinkedIn: https://fr.linkedin.com/in/lucas-natale-ab973061?trk=people-guest_people_search-card\nGitHub: https://github.com/lntl\nTryhackme: https://tryhackme.com/p/Ticip'
 };
+
+
 
 let currentDirectory = '';
 const output = document.getElementById('output');
@@ -35,6 +37,19 @@ function getCurrentDirectoryContents() {
     }
     
     return current;
+}
+
+// Fonction pour convertir les liens en liens cliquables
+function makeLinksClickable(text) {
+    // Convertir les URLs en liens cliquables (regex améliorée)
+    const urlRegex = /(https?:\/\/[^\s<>"{}|\\^`\[\]]+)/g;
+    text = text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: #00aaff; text-decoration: underline; cursor: pointer;">$1</a>');
+    
+    // Convertir les emails en liens cliquables
+    const emailRegex = /\b([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\b/g;
+    text = text.replace(emailRegex, '<a href="mailto:$1" style="color: #00aaff; text-decoration: underline; cursor: pointer;">$1</a>');
+    
+    return text;
 }
 
 // Commande ls
@@ -70,7 +85,8 @@ function catFile(filename) {
     
     if (contents[filename]) {
         if (typeof contents[filename] === 'string') {
-            const fileContent = contents[filename].replace(/\n/g, '<br>');
+            let fileContent = contents[filename].replace(/\n/g, '<br>');
+            fileContent = makeLinksClickable(fileContent);
             addLine(`<div class="file-content">${fileContent}</div>`);
         } else {
             addLine(`cat: ${filename}: Est un répertoire`, 'error');

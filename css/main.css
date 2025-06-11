@@ -107,6 +107,21 @@ body {
     color: #ffffff;
 }
 
+.btn {
+    position: absolute;
+    top: 0;
+    border-radius: 30px;
+    right: 20px;
+    top: 22px;
+    background: #ffffff;
+    background-color: rgb(255, 255, 255);
+    color: #27940c;
+    padding: 5px 20px;
+}
+.btn:hover {
+    border: 1px solid;
+}
+
 .input-container {
     display: flex;
     align-items: center;
@@ -152,4 +167,18 @@ body {
 .help-text {
     color: #ffff00;
     font-size: 0.9em;
+}
+
+@media (max-width: 1090px) {
+    .btn{
+        position: relative;
+        right: 0;
+        top: auto;
+        left: 0;
+        margin: 0 auto;
+        margin-bottom: 0px;
+        display: block;
+        width: 240px;
+        margin-bottom: 20px;
+    }
 }
