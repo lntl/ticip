@@ -91,11 +91,9 @@ function showHelp() {
         <strong>clear</strong> - Effacer l'écran du terminal<br><br>
         
         Fichiers disponibles :<br>
-        • welcome.txt - Message de bienvenue<br>
+        • cv.txt - Message de bienvenue<br>
         • info.txt - Informations système<br>
         • contact.txt - Informations de contact<br>
-        • projets/ - Dossier des projets<br>
-        • documents/ - Dossier des documents<br>
         </div>
     `);
 }
