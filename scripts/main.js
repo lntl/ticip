@@ -112,7 +112,7 @@ function processCommand(command) {
     const args = parts.slice(1);
 
     // Afficher la commande tapée
-    addLine(`<span class="prompt">user@terminal:~${currentDirectory}$</span> <span class="command">${command}</span>`);
+    addLine(`<span class="prompt">Guest@terminal:~${currentDirectory}$</span> <span class="command">${command}</span>`);
 
     switch (cmd) {
         case 'ls':
