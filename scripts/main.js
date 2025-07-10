@@ -160,3 +160,30 @@ document.addEventListener('click', function() {
 setTimeout(() => {
     addLine('<span class="help-text">Tapez "help" pour voir les commandes disponibles ou "ls" pour commencer !</span>');
 }, 1000);
+
+
+// GET IP ADDRESS
+fetch('https://httpbin.org/ip')
+  .then(response => response.json())
+  .then((data) => {
+    let ip = document.getElementById('yourip');
+    console.log(data)
+    ip.innerText = data.origin
+  });
+
+fetch('https://httpbin.org/user-agent')
+  .then(response => response.json())
+  .then((data) => {
+    const regex = /\(([^)]+)\).*?(Chrome|Firefox|Safari|Edge|Opera)\/([\d.]+)/;
+    const match = data['user-agent'].match(regex);
+    if (match) {
+        const divnavigator = document.getElementById('navigator')
+        const divos = document.getElementById('os')
+        const os = match[1];
+        const browser = match[2];
+        const version = match[3];
+        divnavigator.innerText = browser;
+        divos.innerText = os;
+    }
+  });
+  

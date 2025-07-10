@@ -183,3 +183,9 @@ body {
         margin-bottom: 20px;
     }
 }
+
+.infos {
+    font-size: 0.8rem;
+    color: #27940c;
+    margin-bottom: 10px;
+}
