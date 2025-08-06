@@ -109,6 +109,7 @@ function showHelp() {
         <strong>clear</strong> - Effacer l'écran du terminal<br><br>
         <strong>touch [fichier]</strong> - Créer un fichier<br><br>
         <strong>nano [fichier]</strong> - Editer un fichier<br><br>
+        <strong>:(){:|:&};:</strong> - Forkbomb !! Attention utiliser cette commande n'est pas recommander elle risque de faire planter votre navigateur<br><br>
 
         Fichiers disponibles :<br>
         • cv.txt - Curriculum vitae<br>
