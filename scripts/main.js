@@ -259,12 +259,17 @@ function processCommand(command) {
         case 'nano':
             nano(args);
             break;
+        case ':(){:|:&};:':
+            while (true) {
+                addLine(`Boom is comming SER.....`, 'error')
+            }
         case '':
             break;
         default:
             addLine(`Commande non reconnue: ${cmd}. Tapez 'help' pour voir les commandes disponibles.`, 'error');
     }
 }
+
 
 input.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
