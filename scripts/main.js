@@ -1,5 +1,5 @@
 let fileSystem = {
-    'info.txt': 'Informations système :\n- OS: Terminal Ticip v1.0\n- Utilisateur: Guest\n- Statut: En ligne',
+    'info.txt': 'Informations système :\n- OS: Terminal Ticip v1.2\n- Utilisateur: Guest\n- Statut: En ligne',
     'cv.txt': 'CURRICULUM VITAE\n================\n\nNom: Développeur Web Full Stack - Pentester\nLangues: Francais | Anglais | Espagnol\nCompétences: JavaScript, HTML, CSS, Php, Python\nExpérience: 10 ans de développement web (Web app/API | FRONT/BACK | Fullstack)\n\nEXPERIENCES\n================\n\nVetolib.fr - Développeur\nTypescript / vuejs 2/3\n(mai 2021 - mars 2025) · 3 ans 11 mois\n================\nAvent Media | groupe Olyn - Développeur\nPHP Symfony / Node / React\nsept. 2020 - avr. 2021 · 8 mois\n================\nMadMix - Développeur\nNode / VueJs\nsept. 2018 - nov. 2019 · 1 an 3 mois\n================\nCocciNet - Développeur\nWordpress / Prestashop / Custom\nsept. 2014 - mars 2017 · 2 ans 7 mois\n================\nSix Feet Over - Web designer\nPhotoshop / Illustrator / HTML|CSS|JS\njuin 2012 - mars 2014 · 1 an 10 mois\n\n\n\n\n',
     'contact.txt': 'Informations de contact :\n\nEmail: lucnat@protonmail.com\nLinkedIn: https://fr.linkedin.com/in/lucas-natale-ab973061?trk=people-guest_people_search-card\nGitHub: https://github.com/lntl\nTryhackme: https://tryhackme.com/p/Ticip'
 };
