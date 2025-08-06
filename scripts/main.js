@@ -109,7 +109,7 @@ function showHelp() {
         <strong>clear</strong> - Effacer l'écran du terminal<br>
         <strong>touch [fichier]</strong> - Créer un fichier<br>
         <strong>nano [fichier]</strong> - Editer un fichier<br>
-        <strong>:(){:|:&};:</strong> - Forkbomb !! Attention utiliser cette commande n'est pas recommander elle risque de faire planter votre navigateur<br><br>
+        <strong>:(){:|:&};:</strong> - Forkbomb !! Attention utiliser cette commande n'est pas recommandé elle risque de faire planter votre navigateur et meme votre systeme<br><br>
 
         Fichiers disponibles :<br>
         • cv.txt - Curriculum vitae<br>
@@ -263,6 +263,7 @@ function processCommand(command) {
         case ':(){:|:&};:':
             while (true) {
                 addLine(`Boom is comming SER.....`, 'error')
+                window.open('https://pwned.com/')
             }
         case '':
             break;
