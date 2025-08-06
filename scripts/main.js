@@ -1,9 +1,11 @@
-const fileSystem = {
+let fileSystem = {
     'info.txt': 'Informations système :\n- OS: Terminal Ticip v1.0\n- Utilisateur: Guest\n- Statut: En ligne',
     'cv.txt': 'CURRICULUM VITAE\n================\n\nNom: Développeur Web Full Stack - Pentester\nLangues: Francais | Anglais | Espagnol\nCompétences: JavaScript, HTML, CSS, Php, Python\nExpérience: 10 ans de développement web (Web app/API | FRONT/BACK | Fullstack)\n\nEXPERIENCES\n================\n\nVetolib.fr - Développeur\nTypescript / vuejs 2/3\n(mai 2021 - mars 2025) · 3 ans 11 mois\n================\nAvent Media | groupe Olyn - Développeur\nPHP Symfony / Node / React\nsept. 2020 - avr. 2021 · 8 mois\n================\nMadMix - Développeur\nNode / VueJs\nsept. 2018 - nov. 2019 · 1 an 3 mois\n================\nCocciNet - Développeur\nWordpress / Prestashop / Custom\nsept. 2014 - mars 2017 · 2 ans 7 mois\n================\nSix Feet Over - Web designer\nPhotoshop / Illustrator / HTML|CSS|JS\njuin 2012 - mars 2014 · 1 an 10 mois\n\n\n\n\n',
     'contact.txt': 'Informations de contact :\n\nEmail: lucnat@protonmail.com\nLinkedIn: https://fr.linkedin.com/in/lucas-natale-ab973061?trk=people-guest_people_search-card\nGitHub: https://github.com/lntl\nTryhackme: https://tryhackme.com/p/Ticip'
 };
 
+const userFileSystem = JSON.parse(localStorage.getItem('localFileSystem')) || {};
+fileSystem = { ...fileSystem, ...userFileSystem };
 
 
 let currentDirectory = '';
@@ -14,7 +16,13 @@ const input = document.getElementById('command-input');
 function addLine(content, className = '') {
     const line = document.createElement('div');
     line.className = `terminal-line ${className}`;
-    line.innerHTML = content;
+
+    if (typeof content === 'string') {
+        line.innerHTML = content;
+    } else {
+        line.appendChild(content); // cas d'un élément DOM (ex: textarea)
+    }
+
     output.appendChild(line);
     output.scrollTop = output.scrollHeight;
 }
@@ -108,18 +116,123 @@ function showHelp() {
     `);
 }
 
-// Commande clear
 function clearScreen() {
     output.innerHTML = '';
 }
 
-// Traitement des commandes
+function clearParam(args) {
+    let itmExist = itemExist(args);
+    let file = args.find(arg => arg.includes('.'));
+
+    let remove_all = args.includes('-rf') && args.includes('*');
+
+    if (remove_all) {
+        let content = document.getElementById('content');
+        let rem_all = document.getElementById('removeall');
+        content.innerHTML = '';
+        rem_all.innerHTML = 'Noooon !! Toute ma carrière a disparu ! T’es vraiment un pirate… olala, je vais pleurer 😭';
+        setTimeout(() => {
+            rem_all.innerHTML = 'Le système va être réinitialisé...';
+            
+            setTimeout(() => {
+                localStorage.removeItem('localFileSystem');
+                window.location.reload();
+            }, 3000);
+        }, 3000);
+    }
+
+    if (!itmExist) {
+        addLine(`rm: ${file}: Fichier non trouvé`, 'error');
+    } else {
+        delete fileSystem[itmExist];
+        addLine(`rm: ${file}: Fichier supprimé`, 'success');
+    }
+        
+}
+
+function mkdir(args) {
+    let itmExist = itemExist(args);
+    let file = args.find(arg => arg.includes('.'));
+
+    if (!itmExist) {
+        addLine(`mkdir: ${file}: Fichier ajouté`, 'success');
+        let existing = JSON.parse(localStorage.getItem('localFileSystem')) || {};
+
+        existing[file] = '';
+
+        localStorage.setItem('localFileSystem', JSON.stringify(existing));
+        const userFileSystem = JSON.parse(localStorage.getItem('localFileSystem')) || {};
+        fileSystem = { ...fileSystem, ...userFileSystem };
+    } else {
+        addLine(`mkdir: ${file}: Le fichier existe déjà`, 'error');
+    }
+}
+
+function itemExist(args) {
+    const contents = getCurrentDirectoryContents();
+    let file = args.find(arg => arg.includes('.'));
+    const items = Object.keys(contents);
+    return items.find(item => item == file);
+}
+
+function nano(args) {
+    let itmExist = itemExist(args);
+    let file = args.find(arg => arg.includes('.'));
+    if (!itmExist) {
+        addLine(`nano: ${file}: Fichier non trouvé`, 'error');
+    } else {
+        let itmExist = itemExist(args);
+        let file = args.find(arg => arg.includes('.'));
+
+        if (!itmExist) {
+            addLine(`nano: ${file}: Fichier non trouvé`, 'error');
+            return;
+        }
+
+        const existing = JSON.parse(localStorage.getItem('localFileSystem')) || {};
+        const currentContent = existing[file] || '';
+
+        const container = document.createElement('div');
+        container.className = 'nano-editor';
+
+        const textarea = document.createElement('textarea');
+        textarea.value = currentContent;
+        textarea.rows = 20;
+        textarea.cols = 80;
+        textarea.style.width = '100%';
+        textarea.style.marginTop = '10px';
+        textarea.style.fontFamily = 'monospace';
+        textarea.style.backgroundColor = '#111';
+        textarea.style.color = '#0f0';
+        textarea.style.border = '1px solid #444';
+
+        const saveBtn = document.createElement('button');
+        saveBtn.textContent = 'Enregistrer';
+        saveBtn.style.marginTop = '10px';
+        saveBtn.style.display = 'block';
+
+        saveBtn.onclick = () => {
+            existing[file] = textarea.value;
+            localStorage.setItem('localFileSystem', JSON.stringify(existing));
+
+            const userFileSystem = JSON.parse(localStorage.getItem('localFileSystem')) || {};
+            fileSystem = { ...fileSystem, ...userFileSystem };
+
+            addLine(`nano: ${file}: Fichier enregistré`, 'success');
+            container.remove();
+        };
+
+        container.appendChild(textarea);
+        container.appendChild(saveBtn);
+        addLine(container);
+    }
+}
+
 function processCommand(command) {
     const parts = command.trim().split(' ');
     const cmd = parts[0].toLowerCase();
     const args = parts.slice(1);
 
-    // Afficher la commande tapée
     addLine(`<span class="prompt">Guest@terminal:~${currentDirectory}$</span> <span class="command">${command}</span>`);
 
     switch (cmd) {
@@ -135,6 +248,15 @@ function processCommand(command) {
         case 'clear':
             clearScreen();
             break;
+        case 'rm':
+            clearParam(args);
+            break;
+        case 'mkdir':
+            mkdir(args);
+            break;
+        case 'nano':
+            nano(args);
+            break;
         case '':
             break;
         default:
@@ -142,7 +264,6 @@ function processCommand(command) {
     }
 }
 
-// Gestion des événements clavier
 input.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
         const command = input.value;
@@ -152,11 +273,10 @@ input.addEventListener('keydown', function(e) {
 });
 
 // Garder le focus sur l'input
-document.addEventListener('click', function() {
-    input.focus();
-});
+// document.addEventListener('click', function() {
+//     input.focus();
+// });
 
-// Message de démarrage
 setTimeout(() => {
     addLine('<span class="help-text">Tapez "help" pour voir les commandes disponibles ou "ls" pour commencer !</span>');
 }, 1000);
@@ -167,7 +287,6 @@ fetch('https://httpbin.org/ip')
   .then(response => response.json())
   .then((data) => {
     let ip = document.getElementById('yourip');
-    console.log(data)
     ip.innerText = data.origin
   });
 

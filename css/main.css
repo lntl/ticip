@@ -189,3 +189,7 @@ body {
     color: #27940c;
     margin-bottom: 10px;
 }
+#removeall {
+    color: red;
+    text-align: center;
+}
