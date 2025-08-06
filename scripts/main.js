@@ -107,7 +107,7 @@ function showHelp() {
         <strong>cat [fichier]</strong> - Afficher le contenu d'un fichier<br>
         <strong>help</strong> - Afficher cette aide<br>
         <strong>clear</strong> - Effacer l'écran du terminal<br><br>
-        <strong>mkdir [fichier]</strong> - Créer un fichier<br><br>
+        <strong>touch [fichier]</strong> - Créer un fichier<br><br>
         <strong>nano [fichier]</strong> - Editer un fichier<br><br>
 
         Fichiers disponibles :<br>
@@ -152,12 +152,12 @@ function clearParam(args) {
         
 }
 
-function mkdir(args) {
+function touch(args) {
     let itmExist = itemExist(args);
     let file = args.find(arg => arg.includes('.'));
 
     if (!itmExist) {
-        addLine(`mkdir: ${file}: Fichier ajouté`, 'success');
+        addLine(`touch: ${file}: Fichier ajouté`, 'success');
         let existing = JSON.parse(localStorage.getItem('localFileSystem')) || {};
 
         existing[file] = '';
@@ -166,7 +166,7 @@ function mkdir(args) {
         const userFileSystem = JSON.parse(localStorage.getItem('localFileSystem')) || {};
         fileSystem = { ...fileSystem, ...userFileSystem };
     } else {
-        addLine(`mkdir: ${file}: Le fichier existe déjà`, 'error');
+        addLine(`touch: ${file}: Le fichier existe déjà`, 'error');
     }
 }
 
@@ -253,8 +253,8 @@ function processCommand(command) {
         case 'rm':
             clearParam(args);
             break;
-        case 'mkdir':
-            mkdir(args);
+        case 'touch':
+            touch(args);
             break;
         case 'nano':
             nano(args);
