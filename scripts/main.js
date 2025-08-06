@@ -106,9 +106,9 @@ function showHelp() {
         <strong>ls</strong> - Lister les fichiers et dossiers du répertoire courant<br>
         <strong>cat [fichier]</strong> - Afficher le contenu d'un fichier<br>
         <strong>help</strong> - Afficher cette aide<br>
-        <strong>clear</strong> - Effacer l'écran du terminal<br><br>
-        <strong>touch [fichier]</strong> - Créer un fichier<br><br>
-        <strong>nano [fichier]</strong> - Editer un fichier<br><br>
+        <strong>clear</strong> - Effacer l'écran du terminal<br>
+        <strong>touch [fichier]</strong> - Créer un fichier<br>
+        <strong>nano [fichier]</strong> - Editer un fichier<br>
         <strong>:(){:|:&};:</strong> - Forkbomb !! Attention utiliser cette commande n'est pas recommander elle risque de faire planter votre navigateur<br><br>
 
         Fichiers disponibles :<br>
