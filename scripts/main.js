@@ -107,7 +107,9 @@ function showHelp() {
         <strong>cat [fichier]</strong> - Afficher le contenu d'un fichier<br>
         <strong>help</strong> - Afficher cette aide<br>
         <strong>clear</strong> - Effacer l'écran du terminal<br><br>
-        
+        <strong>mkdir [fichier]</strong> - Créer un fichier<br><br>
+        <strong>nano [fichier]</strong> - Editer un fichier<br><br>
+
         Fichiers disponibles :<br>
         • cv.txt - Curriculum vitae<br>
         • info.txt - Informations système<br>
