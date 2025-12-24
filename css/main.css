@@ -60,7 +60,6 @@ body {
 .terminal-output {
     flex: 1;
     overflow-y: auto;
-    margin-bottom: 60px;
     padding-right: 10px;
 }
 
@@ -125,13 +124,7 @@ body {
 .input-container {
     display: flex;
     align-items: center;
-    border-top: 1px solid;
-    padding-top: 20px;
-    position: absolute;
-    bottom: 0;
-    width: calc(100% - 40px);
-    background: #0c0c0c;
-    padding-bottom: 20px;
+    margin-top: 5px;
 }
 
 .prompt-symbol {
@@ -148,6 +141,7 @@ body {
     font-size: 1em;
     flex: 1;
     caret-color: #00ff00;
+    width: 100%;
 }
 
 .cursor {

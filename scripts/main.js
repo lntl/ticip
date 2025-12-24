@@ -20,10 +20,15 @@ function addLine(content, className = '') {
     if (typeof content === 'string') {
         line.innerHTML = content;
     } else {
-        line.appendChild(content); // cas d'un élément DOM (ex: textarea)
+        line.appendChild(content);
     }
 
-    output.appendChild(line);
+    const inputContainer = output.querySelector('.input-container');
+    if (inputContainer) {
+        output.insertBefore(line, inputContainer);
+    } else {
+        output.appendChild(line);
+    }
     output.scrollTop = output.scrollHeight;
 }
 
@@ -49,7 +54,7 @@ function getCurrentDirectoryContents() {
 
 // Fonction pour convertir les liens en liens cliquables
 function makeLinksClickable(text) {
-    // Convertir les URLs en liens cliquables (regex améliorée)
+    // Convertir les URLs en liens cliquables
     const urlRegex = /(https?:\/\/[^\s<>"{}|\\^`\[\]]+)/g;
     text = text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color: #00aaff; text-decoration: underline; cursor: pointer;">$1</a>');
     
@@ -109,6 +114,7 @@ function showHelp() {
         <strong>clear</strong> - Effacer l'écran du terminal<br>
         <strong>touch [fichier]</strong> - Créer un fichier<br>
         <strong>nano [fichier]</strong> - Editer un fichier<br>
+        <strong>rm [option] [fichier]</strong> - supprimer un fichier [option] -rf pour supprimer un fichier et tous ses sous-dossiers et * pour supprimer tous les fichiers du répertoire courant<br>
         <strong>:(){:|:&};:</strong> - Forkbomb !! Attention utiliser cette commande n'est pas recommandé elle risque de faire planter votre navigateur et meme votre systeme<br><br>
 
         Fichiers disponibles :<br>
@@ -120,7 +126,14 @@ function showHelp() {
 }
 
 function clearScreen() {
-    output.innerHTML = '';
+    // Supprimer uniquement les lignes de terminal, garder l'input-container
+    const inputContainer = output.querySelector('.input-container');
+    const lines = output.querySelectorAll('.terminal-line, .infos, .nano-editor');
+    lines.forEach(line => line.remove());
+    // S'assurer que l'input reste visible
+    if (inputContainer && !output.contains(inputContainer)) {
+        output.appendChild(inputContainer);
+    }
 }
 
 function clearParam(args) {
@@ -278,13 +291,21 @@ input.addEventListener('keydown', function(e) {
         const command = input.value;
         processCommand(command);
         input.value = '';
+        // Garder le focus sur l'input après l'exécution
+        setTimeout(() => input.focus(), 0);
     }
 });
 
-// Garder le focus sur l'input
-// document.addEventListener('click', function() {
-//     input.focus();
-// });
+document.addEventListener('click', function(e) {
+    const nanoEditor = output.querySelector('.nano-editor');
+    if (nanoEditor && nanoEditor.contains(e.target)) {
+        return;
+    }
+    if (nanoEditor) {
+        return;
+    }
+    input.focus();
+});
 
 setTimeout(() => {
     addLine('<span class="help-text">Tapez "help" pour voir les commandes disponibles ou "ls" pour commencer !</span>');
