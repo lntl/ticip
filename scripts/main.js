@@ -12,6 +12,10 @@ let currentDirectory = '';
 const output = document.getElementById('output');
 const input = document.getElementById('command-input');
 
+// Historique des commandes
+let commandHistory = [];
+let historyIndex = -1;
+
 // Fonction pour ajouter une ligne au terminal
 function addLine(content, className = '') {
     const line = document.createElement('div');
@@ -245,7 +249,24 @@ function nano(args) {
 }
 
 function processCommand(command) {
-    const parts = command.trim().split(' ');
+    const trimmedCommand = command.trim();
+    
+    // Ajouter la commande à l'historique (sauf si elle est vide)
+    if (trimmedCommand !== '') {
+        // Ne pas ajouter si c'est la même commande que la dernière
+        if (commandHistory.length === 0 || commandHistory[commandHistory.length - 1] !== trimmedCommand) {
+            commandHistory.push(trimmedCommand);
+        }
+        // Limiter l'historique à 100 commandes
+        if (commandHistory.length > 100) {
+            commandHistory.shift();
+        }
+    }
+    
+    // Réinitialiser l'index de l'historique
+    historyIndex = -1;
+    
+    const parts = trimmedCommand.split(' ');
     const cmd = parts[0].toLowerCase();
     const args = parts.slice(1);
 
@@ -287,12 +308,36 @@ function processCommand(command) {
 
 
 input.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (commandHistory.length > 0) {
+            if (historyIndex === -1) {
+                historyIndex = commandHistory.length - 1;
+            } else if (historyIndex > 0) {
+                historyIndex--;
+            }
+            input.value = commandHistory[historyIndex];
+        }
+    }
+    
+    if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (historyIndex >= 0) {
+            historyIndex++;
+            if (historyIndex >= commandHistory.length) {
+                historyIndex = -1;
+                input.value = '';
+            } else {
+                input.value = commandHistory[historyIndex];
+            }
+        }
+    }
+    
     if (e.key === 'Enter') {
-        const command = input.value;
-        processCommand(command);
+        e.preventDefault();
+        const command = input.value.trim();
         input.value = '';
-        // Garder le focus sur l'input après l'exécution
-        setTimeout(() => input.focus(), 0);
+        processCommand(command);
     }
 });
 
